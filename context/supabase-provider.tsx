@@ -1,4 +1,4 @@
-import { Session, User } from "@supabase/supabase-js";
+import { Session, User, SupabaseClient } from "@supabase/supabase-js";
 import { useRouter, useSegments, SplashScreen } from "expo-router";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -13,6 +13,7 @@ type SupabaseContextProps = {
 	signUp: (email: string, password: string) => Promise<void>;
 	signInWithPassword: (email: string, password: string) => Promise<void>;
 	signOut: () => Promise<void>;
+	supabase: SupabaseClient; // Add this line
 };
 
 type SupabaseProviderProps = {
@@ -26,6 +27,7 @@ export const SupabaseContext = createContext<SupabaseContextProps>({
 	signUp: async () => {},
 	signInWithPassword: async () => {},
 	signOut: async () => {},
+	supabase: supabase, // Add this line
 });
 
 export const useSupabase = () => useContext(SupabaseContext);
@@ -81,7 +83,7 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
 		const inProtectedGroup = segments[0] === "(protected)";
 
 		if (session && !inProtectedGroup) {
-			router.replace("/(protected)/home");
+			router.replace("/(protected)/");
 		} else if (!session) {
 			router.replace("/(public)/welcome");
 		}
@@ -105,6 +107,7 @@ export const SupabaseProvider = ({ children }: SupabaseProviderProps) => {
 				signUp,
 				signInWithPassword,
 				signOut,
+				supabase,
 			}}
 		>
 			{children}
