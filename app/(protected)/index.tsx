@@ -1,16 +1,18 @@
 import { useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback } from "react";
 import { View, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useFocusEffect } from '@react-navigation/native';
 
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
 import { useSupabase } from "@/context/supabase-provider";
-import { Input } from "@/components/ui/input";
+import { SearchBox } from "@/components/SearchBox";
 
 type Entry = {
   id: string;
   strain: string;
+  brand: string;
   type: string;
   high_rating: number;
   flavor_rating: number;
@@ -21,14 +23,10 @@ type Entry = {
 export default function JournalPage() {
   const router = useRouter();
   const { supabase } = useSupabase();
-  const [entries, setEntries] = useState<Entry[]>([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [entries, setEntries] = React.useState<Entry[]>([]);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
-  useEffect(() => {
-    fetchEntries();
-  }, []);
-
-  const fetchEntries = async () => {
+  const fetchEntries = useCallback(async () => {
     const { data, error } = await supabase
       .from("entries")
       .select("*")
@@ -39,21 +37,26 @@ export default function JournalPage() {
     } else {
       setEntries(data as Entry[]);
     }
-  };
+  }, [supabase]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchEntries();
+    }, [fetchEntries])
+  );
 
   const filteredEntries = entries.filter((entry) =>
-    entry.strain.toLowerCase().includes(searchQuery.toLowerCase())
+    entry.strain.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    entry.brand.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-4">
-        <Input
-          placeholder="Search strains..."
+        <SearchBox
           value={searchQuery}
           onChangeText={setSearchQuery}
-          className="mb-4"
-        />
+		  />
         <ScrollView className="flex-1">
           {filteredEntries.map((entry) => (
             <View key={entry.id} className="bg-card p-4 rounded-lg mb-4">
@@ -61,17 +64,20 @@ export default function JournalPage() {
                 <Text className="font-bold text-lg">{entry.strain}</Text>
                 <Text>{entry.type}</Text>
               </View>
+              {entry.brand && (
+                <Text className="text-twine-700 mt-1">{entry.brand}</Text>
+              )}
               {entry.image && (
                 <Image
                   source={{ uri: entry.image }}
                   className="w-full h-40 rounded-md my-2"
                 />
               )}
-              <View className="flex-row justify-between mt-2">
-                <Text>High: {entry.high_rating}/5</Text>
-                <Text>Flavor: {entry.flavor_rating}/5</Text>
+              <View className="flex-row justify-between mt-2">	
+                <Text className="text-twine-800">{`High Rating: ${entry.high_rating.toFixed(1)}/10`}</Text>
+                <Text className="text-twine-800">{`Flavor Rating: ${entry.flavor_rating.toFixed(1)}/10`}</Text>
               </View>
-              <Text className="mt-2">{entry.date}</Text>
+              <Text className="mt-2">{new Date(entry.date).toLocaleDateString()}</Text>
             </View>
           ))}
         </ScrollView>

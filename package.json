@@ -10,8 +10,10 @@
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.9.0",
+		"@radix-ui/react-popover": "^1.1.1",
 		"@react-native-async-storage/async-storage": "1.23.1",
 		"@react-native-community/datetimepicker": "8.0.1",
+		"@react-native-community/slider": "^4.5.2",
 		"@supabase/supabase-js": "^2.45.3",
 		"@types/wrap-ansi": "^8.1.0",
 		"class-variance-authority": "^0.7.0",

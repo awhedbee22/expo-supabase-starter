@@ -14,7 +14,7 @@ export function Header() {
   const initials = email.slice(0, 2).toUpperCase();
   const avatarUrl = session?.user?.user_metadata?.avatar_url;
 
-  const adjustedTopPadding = insets.top * 0.2; // Use 70% of the top inset
+  const adjustedTopPadding = insets.top * 0.2;
 
   return (
     <SafeAreaView style={{ backgroundColor: 'background' }}>
