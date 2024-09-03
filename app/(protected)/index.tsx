@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { H1 } from "@/components/ui/typography";
 import { useSupabase } from "@/context/supabase-provider";
 import { Input } from "@/components/ui/input";
 
@@ -21,7 +20,7 @@ type Entry = {
 
 export default function JournalPage() {
   const router = useRouter();
-  const { supabase, session } = useSupabase();
+  const { supabase } = useSupabase();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -49,10 +48,6 @@ export default function JournalPage() {
   return (
     <SafeAreaView className="flex-1 bg-background">
       <View className="flex-1 p-4">
-        <View className="flex-row justify-between items-center mb-4">
-          <H1>Cannabis Journal</H1>
-          <Text>{session?.user.email}</Text>
-        </View>
         <Input
           placeholder="Search strains..."
           value={searchQuery}

@@ -21,12 +21,6 @@ export default function RootLayout() {
           <Stack.Screen name="(protected)" />
           <Stack.Screen name="(public)" />
           <Stack.Screen
-            name="modal"
-            options={{
-              presentation: "modal",
-            }}
-          />
-          <Stack.Screen
             name="add-entry"
             options={{
               presentation: "modal",
