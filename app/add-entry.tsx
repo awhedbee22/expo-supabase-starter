@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-import { useRouter, useNavigation } from 'expo-router';
+import { useRouter, useNavigation, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
@@ -38,8 +38,13 @@ export default function AddEntryPage() {
   const [image, setImage] = useState<string | null>(null);
   const [sizeUnitOpen, setSizeUnitOpen] = useState(false);
   const [typeOpen, setTypeOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [entryId, setEntryId] = useState<string | null>(null);
 
-  const { control, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
+  const params = useLocalSearchParams();
+  const entryData = params.entryData ? JSON.parse(params.entryData as string) : null;
+
+  const { control, handleSubmit, formState: { errors }, setValue, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       strain: '',
@@ -56,25 +61,58 @@ export default function AddEntryPage() {
     },
   });
 
+  useEffect(() => {
+    if (entryData) {
+      console.log("Received entry data:", entryData);
+      setIsEditing(true);
+      setEntryId(entryData.id);
+      setImage(entryData.image);
+      
+      // Use setValue instead of reset to update form values
+      setValue('strain', entryData.strain || '');
+      setValue('brand', entryData.brand || '');
+      setValue('size', entryData.size ? entryData.size.toString() : '');
+      setValue('size_unit', entryData.size_unit || 'g');
+      setValue('cost', entryData.cost || 0);
+      setValue('type', entryData.type || 'Concentrate');
+      setValue('high_rating', entryData.high_rating || 1);
+      setValue('flavor_rating', entryData.flavor_rating || 1);
+      setValue('high_description', entryData.high_description || '');
+      setValue('flavor_description', entryData.flavor_description || '');
+      setValue('date', entryData.date ? new Date(entryData.date) : new Date());
+    }
+  }, [entryData, setValue]);  // Remove 'reset' from the dependency array
+
   const onSubmit = async (data: FormData) => {
     try {
-      const { data: entry, error } = await supabase
-        .from('entries')
-        .insert([
-          {
-            ...data,
-            size: parseFloat(data.size),
-            image: image,
-            user_id: (await supabase.auth.getUser()).data.user?.id,
-          },
-        ])
-        .single();
+      const entryData = {
+        ...data,
+        size: parseFloat(data.size),
+        image: image,
+        user_id: (await supabase.auth.getUser()).data.user?.id,
+      };
+
+      let result;
+      if (isEditing && entryId) {
+        result = await supabase
+          .from('entries')
+          .update(entryData)
+          .eq('id', entryId)
+          .single();
+      } else {
+        result = await supabase
+          .from('entries')
+          .insert([entryData])
+          .single();
+      }
+
+      const { data: entry, error } = result;
 
       if (error) throw error;
-      console.log('New entry added:', entry);
+      console.log(isEditing ? 'Entry updated:' : 'New entry added:', entry);
       navigation.goBack();
     } catch (error) {
-      console.error('Error adding new entry:', error);
+      console.error(isEditing ? 'Error updating entry:' : 'Error adding new entry:', error);
     }
   };
 
@@ -97,7 +135,9 @@ export default function AddEntryPage() {
   return (
     <SafeAreaView className="flex-1 bg-twine-100">
       <ScrollView className="flex-1 p-4">
-        <Text className="text-2xl font-bold mb-6 text-twine-950">Add New Entry</Text>
+        <Text className="text-2xl font-bold mb-6 text-twine-950">
+          {isEditing ? 'Edit Entry' : 'Add New Entry'}
+        </Text>
         
         <View className="space-y-6">
           <View className="mb-2">
@@ -106,13 +146,15 @@ export default function AddEntryPage() {
               control={control}
               name="strain"
               render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Strain"
-                  onChangeText={onChange}
-                  value={value}
-                  error={errors.strain?.message}
-                  className={inputClass}
-                />
+                <>
+                  <Input
+                    placeholder="Strain"
+                    onChangeText={onChange}
+                    value={value}
+                    className={inputClass}
+                  />
+                  {errors.strain && <Text className="text-red-500 text-xs mt-1">{errors.strain.message}</Text>}
+                </>
               )}
             />
           </View>
@@ -124,13 +166,15 @@ export default function AddEntryPage() {
                 control={control}
                 name="brand"
                 render={({ field: { onChange, value } }) => (
-                  <Input
-                    placeholder="Brand"
-                    onChangeText={onChange}
-                    value={value}
-                    error={errors.brand?.message}
-                    className={inputClass}
-                  />
+                  <>
+                    <Input
+                      placeholder="Brand"
+                      onChangeText={onChange}
+                      value={value}
+                      className={inputClass}
+                    />
+                    {errors.brand && <Text className="text-red-500 text-xs mt-1">{errors.brand.message}</Text>}
+                  </>
                 )}
               />
             </View>
@@ -181,17 +225,19 @@ export default function AddEntryPage() {
                   control={control}
                   name="size"
                   render={({ field: { onChange, value } }) => (
-                    <Input
-                      placeholder="Size"
-                      onChangeText={(text) => {
-                        const num = parseFloat(text);
-                        onChange(isNaN(num) ? '' : text);
-                      }}
-                      value={value}
-                      keyboardType="numeric"
-                      error={errors.size?.message}
-                      className={`${inputClass} flex-1`}
-                    />
+                    <>
+                      <Input
+                        placeholder="Size"
+                        onChangeText={(text) => {
+                          const num = parseFloat(text);
+                          onChange(isNaN(num) ? '' : text);
+                        }}
+                        value={value}
+                        keyboardType="numeric"
+                        className={`${inputClass} flex-1`}
+                      />
+                      {errors.size && <Text className="text-red-500 text-xs mt-1">{errors.size.message}</Text>}
+                    </>
                   )}
                 />
                 <Controller
@@ -207,7 +253,7 @@ export default function AddEntryPage() {
                           className={`${inputClass} mx-4 h-12 w-24 justify-center items-center`}
                         >
                           <Text>{value}</Text>
-                        </TouchableOpacity>
+                          </TouchableOpacity>
                       )}
                       content={
                         <View className="bg-white p-2 rounded-md">
@@ -347,15 +393,19 @@ export default function AddEntryPage() {
               control={control}
               name="high_description"
               render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="High Description"
-                  onChangeText={onChange}
-                  value={value}
-                  multiline
-                  numberOfLines={4}
-                  error={errors.high_description?.message}
-                  className={`${inputClass} h-24`}
-                />
+                <>
+                  <Input
+                    placeholder="High Description"
+                    onChangeText={onChange}
+                    value={value}
+                    multiline
+                    numberOfLines={4}
+                    className={`${inputClass} h-24`}
+                  />
+                  {errors.high_description && (
+                    <Text className="text-red-500 text-xs mt-1">{errors.high_description.message}</Text>
+                  )}
+                </>
               )}
             />
           </View>
@@ -366,20 +416,24 @@ export default function AddEntryPage() {
               control={control}
               name="flavor_description"
               render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Flavor Description"
-                  onChangeText={onChange}
-                  value={value}
-                  multiline
-                  numberOfLines={4}
-                  error={errors.flavor_description?.message}
-                  className={`${inputClass} h-24`}
-                />
+                <>
+                  <Input
+                    placeholder="Flavor Description"
+                    onChangeText={onChange}
+                    value={value}
+                    multiline
+                    numberOfLines={4}
+                    className={`${inputClass} h-24`}
+                  />
+                  {errors.flavor_description && (
+                    <Text className="text-red-500 text-xs mt-1">{errors.flavor_description.message}</Text>
+                  )}
+                </>
               )}
             />
           </View>
 
-          <View className="flex-row justify-end space-x-4 mt-6">
+          <View className="flex-row justify-end space-x-4 mt-4">
             <Button 
               onPress={() => navigation.goBack()} 
               variant="outline" 
@@ -391,7 +445,7 @@ export default function AddEntryPage() {
               onPress={handleSubmit(onSubmit)} 
               className="bg-twine-500 px-4 py-2 rounded-sm"
             >
-              <Text className="text-twine-50">Save</Text>
+              <Text className="text-twine-50">{isEditing ? 'Update' : 'Save'}</Text>
             </Button>
           </View>
         </View>

@@ -1,31 +1,120 @@
-# Expo Supabase Starter
-
-[![MIT License](https://img.shields.io/github/license/FlemingVincent/expo-supabase-starter)](https://github.com/FlemingVincent/expo-supabase-starter/blob/main/LICENSE)
-
+# CannaJournal
 ## Introduction
 
-This repository serves as a comprehensive starter project for developing Expo applications with Supabase as the backend. It integrates various technologies such as Expo Router for navigation, Tailwind CSS for styling, React-Hook-Form for form handling, Zod for schema validation, and TypeScript for type safety. By leveraging these powerful tools, this starter template provides a robust foundation for building modern, scalable, and efficient mobile applications.
+CannaJournal is a comprehensive mobile application for tracking and optimizing cannabis experiences. Built using the Expo Supabase Starter template, it provides a robust foundation for both medical patients and recreational users to log, analyze, and understand their cannabis consumption patterns.
 
-#### Disclaimer
+## Features
 
-This is not supposed to be a template, boilerplate or a framework. It is an opinionated guide that shows how to do some things in a certain way. You are not forced to do everything exactly as it is shown here, decide what works best for you and your team and stay consistent with your style.
+- Easy-to-use journal entries for cannabis sessions
+- Track strains, consumption methods, dosage, and effects
+- Mood and symptom tracking before and after use
+- Detailed insights and reports on usage patterns
+- Secure, private, and encrypted data storage
 
 ## Table of Contents
 
-- [💻 Application Overview](docs/application-overview.md)
-- [⚙️ Project Configuration](docs/project-configuration.md)
-- [🗄️ Project Structure](docs/project-structure.md)
-- [🧱 Components And Styling](docs/components-and-styling.md)
-- [🗃️ State Management](docs/state-management.md)
+- [💻 Application Overview](#application-overview)
+- [⚙️ Project Configuration](#project-configuration)
+- [🗄️ Project Structure](#project-structure)
+- [🧱 Components And Styling](#components-and-styling)
+- [🗃️ State Management](#state-management)
+- [🚀 Getting Started](#getting-started)
+- [📚 Additional Resources](#additional-resources)
+- [🤝 Contributing](#contributing)
+- [📄 License](#license)
+
+## Application Overview
+
+CannaJournal is built on a solid foundation using modern web technologies:
+
+- **Expo**: For cross-platform mobile app development
+- **Supabase**: Backend as a Service for authentication and data storage
+- **Expo Router**: For seamless navigation
+- **TypeScript**: For enhanced type safety
+- **NativeWind**: Tailwind CSS for React Native, providing utility-first styling
+- **React Hook Form**: For efficient form handling
+- **Zod**: For schema validation
+
+## Project Configuration
+
+The project is configured with:
+
+- **ESLint**: For identifying and reporting on patterns in JavaScript/TypeScript
+- **Prettier**: For code formatting
+- **TypeScript**: For static type checking
+- **Absolute imports**: For cleaner import statements
+
+For detailed configuration, refer to the `tsconfig.json`, `.eslintrc.js`, and `.prettierrc` files in the project root.
+
+## Project Structure
+
+The project structure is organized as follows:
+
+```
+root
+|
++-- app               # Contains all screens and layouts (Expo Router)
+|
++-- assets            # Static assets (images, fonts, icons)
+|
++-- components        # Reusable React components
+|
++-- config            # Configuration files
+|
++-- context           # React Context providers
+|
++-- lib               # Utility functions and constants
+```
+
+## Components And Styling
+
+CannaJournal uses a component-based architecture with NativeWind for styling:
+
+- Custom UI components are located in the `components` directory
+- Styling is done using Tailwind CSS classes via NativeWind
+- The app supports both light and dark modes
+
+## State Management
+
+- **Form State**: Managed using React Hook Form
+- **Global State**: Handled through React Context (see `context` directory)
+- **Data Persistence**: Achieved using Supabase
+
+## Getting Started
+
+To set up CannaJournal locally:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/YourGithubUsername/CannaJournal.git
+   cd CannaJournal
+   ```
+
+2. Install dependencies:
+   ```bash
+   yarn install
+   ```
+
+3. Set up your Supabase project and update the `.env` file with your Supabase URL and API key.
+
+4. Start the development server:
+   ```bash
+   yarn start
+   ```
+
+5. Follow the Expo CLI instructions to run the app on your desired platform (iOS simulator, Android emulator, or physical device).
+
+## Additional Resources
+
+- [Expo Documentation](https://docs.expo.dev/)
+- [Supabase Documentation](https://supabase.io/docs)
+- [NativeWind Documentation](https://www.nativewind.dev/)
+- [React Hook Form Documentation](https://react-hook-form.com/)
 
 ## Contributing
 
-Contributions to this starter project are highly encouraged and welcome! If you have any suggestions, bug reports, or feature requests, please feel free to create an issue or submit a pull request. Let's work together to enhance the developer experience and make it easier for everyone to build exceptional Expo applications with Supabase.
+Contributions to CannaJournal are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This repository is licensed under the MIT License. You are granted the freedom to use, modify, and distribute the code for personal or commercial purposes. For more details, please refer to the [LICENSE](https://github.com/FlemingVincent/supabase-starter/blob/main/LICENSE) file.
-
-## Demo
-
-https://github.com/FlemingVincent/expo-supabase-starter/assets/80268905/884ed027-4e4c-4fac-abc2-1f4a5df958f2
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

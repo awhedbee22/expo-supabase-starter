@@ -122,55 +122,75 @@ export default function SettingsPage() {
   };
 
   return (
-    <ScrollView className="flex-1 bg-background p-4">
-      <View className="items-center mb-6">
-        <TouchableOpacity onPress={pickImage} disabled={isUploading}>
-          <Avatar
-            src={avatarUrl}
-            alt={`${session?.user?.email}'s avatar`}
-            fallback={session?.user?.email?.slice(0, 2).toUpperCase() || ''}
-            size="lg"
-          />
-        </TouchableOpacity>
-        <Text className="mt-2">
-          {isUploading ? 'Uploading...' : 'Tap to change avatar'}
-        </Text>
+    <ScrollView className="flex-1 bg-twine-100">
+      <View className="p-6 bg-twine-200">
+        <Text className="text-3xl font-bold text-twine-900 mb-2">Settings</Text>
+        <Text className="text-twine-700">Manage your account and preferences</Text>
       </View>
+      
+      <View className="p-6">
+        <View className="items-center mb-8">
+          <TouchableOpacity onPress={pickImage} disabled={isUploading}>
+            <Avatar
+              src={avatarUrl}
+              alt={`${session?.user?.email}'s avatar`}
+              fallback={session?.user?.email?.slice(0, 2).toUpperCase() || ''}
+              size="xl"
+              className="bg-twine-300 border-4 border-twine-400 w-24 h-24"
+            />
+          </TouchableOpacity>
+          <Text className="mt-3 text-twine-700">
+            {isUploading ? 'Uploading...' : 'Tap to change avatar'}
+          </Text>
+        </View>
 
-      <Controller
-        control={control}
-        name="email"
-        render={({ field: { onChange, value } }) => (
-          <Input
-            placeholder="Email"
-            onChangeText={onChange}
-            value={value}
-            error={errors.email?.message}
+        <View className="mb-6">
+          <Text className="text-lg font-semibold text-twine-800 mb-2">Account Information</Text>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                placeholder="Email"
+                onChangeText={onChange}
+                value={value}
+                error={errors.email?.message}
+                className="bg-white border-twine-300 mb-4"
+              />
+            )}
           />
-        )}
-      />
 
-      <Controller
-        control={control}
-        name="password"
-        render={({ field: { onChange, value } }) => (
-          <Input
-            placeholder="New Password (optional)"
-            onChangeText={onChange}
-            value={value}
-            secureTextEntry
-            error={errors.password?.message}
+          <Controller
+            control={control}
+            name="password"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                placeholder="New Password (optional)"
+                onChangeText={onChange}
+                value={value}
+                secureTextEntry
+                error={errors.password?.message}
+                className="bg-white border-twine-300"
+              />
+            )}
           />
-        )}
-      />
+        </View>
 
-      <Button onPress={handleSubmit(onSubmit)} className="mt-4">
-        <Text>Update Profile</Text>
-      </Button>
+        <Button 
+          onPress={handleSubmit(onSubmit)} 
+          className="bg-twine-600 mb-4"
+        >
+          <Text className="text-white font-semibold">Update Profile</Text>
+        </Button>
 
-      <Button onPress={handleSignOut} variant="destructive" className="mt-4">
-        <Text>Sign Out</Text>
-      </Button>
+        <Button 
+          onPress={handleSignOut} 
+          variant="destructive" 
+          className="bg-red-500"
+        >
+          <Text className="text-white font-semibold">Sign Out</Text>
+        </Button>
+      </View>
     </ScrollView>
   );
 }

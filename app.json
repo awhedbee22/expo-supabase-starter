@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "ExpoSupabaseStarter",
-    "slug": "ExpoSupabaseStarter",
-    "scheme": "expo-supabase-starter",
+    "name": "Canna-Journal",
+    "slug": "Canna-Journal",
+    "scheme": "canna-journal",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#597554"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,13 +19,18 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.awhedbee.CannaJournal"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#597554"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.awhedbee.CannaJournal"
     },
     "experiments": {
       "typedRoutes": true
@@ -40,6 +45,14 @@
           "cameraPermission": "The app accesses your camera to let you share photos with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7f31c15f-ca53-4dfc-ae3c-892beb728015"
+      }
+    }
   }
 }

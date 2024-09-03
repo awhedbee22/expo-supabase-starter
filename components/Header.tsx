@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Avatar } from '@/components/ui/avatar';
@@ -14,30 +14,27 @@ export function Header() {
   const initials = email.slice(0, 2).toUpperCase();
   const avatarUrl = session?.user?.user_metadata?.avatar_url;
 
-  const adjustedTopPadding = insets.top * 0.2;
-
   return (
-    <SafeAreaView style={{ backgroundColor: 'background' }}>
-      <View 
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: 12,
-          paddingTop: adjustedTopPadding,
-          paddingBottom: 12,
-        }}
-      >
-        <Text style={{ fontSize: 22, fontWeight: 'bold' }}>CannaJournal</Text>
-        <TouchableOpacity onPress={() => router.push('/settings')}>
-          <Avatar
-            src={avatarUrl}
-            alt={`${email}'s avatar`}
-            fallback={initials}
-            size="md"
-          />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <View 
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 12,
+        paddingTop: insets.top,
+        paddingBottom: 12,
+        backgroundColor: 'rgb(226, 213, 197)', // twine-200 color
+      }}
+    >
+      <Text className="text-twine-900 text-2xl font-bold">CannaJournal</Text>
+      <TouchableOpacity onPress={() => router.push('/settings')}>
+        <Avatar
+          src={avatarUrl}
+          alt={`${email}'s avatar`}
+          fallback={initials}
+          size="md"
+        />
+      </TouchableOpacity>
+    </View>
   );
 }
