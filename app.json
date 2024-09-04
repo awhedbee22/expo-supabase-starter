@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Canna-Journal",
-    "slug": "Canna-Journal",
-    "scheme": "canna-journal",
-    "version": "1.0.0",
+    "name": "Toke Journal",
+    "slug": "toke-journal",
+    "scheme": "toke-journal",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -17,10 +17,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "usesNonExemptEncryption": false
-      },
-      "bundleIdentifier": "com.awhedbee.CannaJournal"
+      "bundleIdentifier": "com.awhedbee.TokeJournal",
+      "buildNumber": "1.0.2"
     },
     "android": {
       "adaptiveIcon": {
@@ -30,7 +28,8 @@
       "permissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.awhedbee.CannaJournal"
+      "package": "com.awhedbee.TokeJournal",
+      "versionCode": 1
     },
     "experiments": {
       "typedRoutes": true
@@ -51,8 +50,11 @@
         "origin": false
       },
       "eas": {
-        "projectId": "7f31c15f-ca53-4dfc-ae3c-892beb728015"
-      }
-    }
+        "projectId": "1ef3cae7-93b2-4a64-9c5c-1fee9fd1d39e"
+      },
+      "supabaseUrl": "https://xqmelijilgdgdqlzyroz.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxbWVsaWppbGdkZ2RxcHpsenpvcnoiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcyMjYyMjYyMiwiZXhwIjoxMDI4MTk4NjIyfQ.5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    "owner": "awhedbee"
   }
 }

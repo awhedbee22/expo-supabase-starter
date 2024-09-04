@@ -1,7 +1,7 @@
-# CannaJournal
+# Toke Diary
 ## Introduction
 
-CannaJournal is a comprehensive mobile application for tracking and optimizing cannabis experiences. Built using the Expo Supabase Starter template, it provides a robust foundation for both medical patients and recreational users to log, analyze, and understand their cannabis consumption patterns.
+Toke Diary is a comprehensive mobile application for tracking and optimizing cannabis experiences. Built using the Expo Supabase Starter template, it provides a robust foundation for both medical patients and recreational users to log, analyze, and understand their cannabis consumption patterns.
 
 ## Features
 
@@ -25,7 +25,7 @@ CannaJournal is a comprehensive mobile application for tracking and optimizing c
 
 ## Application Overview
 
-CannaJournal is built on a solid foundation using modern web technologies:
+Toke Diary is built on a solid foundation using modern web technologies:
 
 - **Expo**: For cross-platform mobile app development
 - **Supabase**: Backend as a Service for authentication and data storage
@@ -68,7 +68,7 @@ root
 
 ## Components And Styling
 
-CannaJournal uses a component-based architecture with NativeWind for styling:
+Toke Diary uses a component-based architecture with NativeWind for styling:
 
 - Custom UI components are located in the `components` directory
 - Styling is done using Tailwind CSS classes via NativeWind
@@ -82,12 +82,12 @@ CannaJournal uses a component-based architecture with NativeWind for styling:
 
 ## Getting Started
 
-To set up CannaJournal locally:
+To set up Toke Diary locally:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YourGithubUsername/CannaJournal.git
-   cd CannaJournal
+   git clone https://github.com/YourGithubUsername/Toke Diary.git
+   cd Toke Diary
    ```
 
 2. Install dependencies:
@@ -113,7 +113,7 @@ To set up CannaJournal locally:
 
 ## Contributing
 
-Contributions to CannaJournal are welcome! Please feel free to submit a Pull Request.
+Contributions to Toke Diary are welcome! Please feel free to submit a Pull Request.
 
 ## License
 

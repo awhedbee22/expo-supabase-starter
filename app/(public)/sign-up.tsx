@@ -65,7 +65,7 @@ export default function SignUp() {
       <View className="flex-1">
         <H1 className="text-3xl font-bold text-twine-900 mb-2">Sign Up</H1>
         <Muted className="text-twine-700 mb-8">
-          Create your CannaJournal account
+          Create your Toke Diary account
         </Muted>
         <Form {...form}>
           <View className="gap-6">

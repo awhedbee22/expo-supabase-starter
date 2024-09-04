@@ -26,7 +26,7 @@ export function Header() {
         backgroundColor: 'rgb(226, 213, 197)', // twine-200 color
       }}
     >
-      <Text className="text-twine-900 text-2xl font-bold">CannaJournal</Text>
+      <Text className="text-twine-900 text-2xl font-bold">Toke Journal</Text>
       <TouchableOpacity onPress={() => router.push('/settings')}>
         <Avatar
           src={avatarUrl}

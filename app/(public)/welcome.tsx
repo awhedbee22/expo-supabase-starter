@@ -17,7 +17,7 @@ export default function WelcomeScreen() {
     >
       <SafeAreaView className="flex flex-1 bg-twine-100/80 p-6">
         <View className="flex flex-1 items-center justify-center gap-y-6">
-          <H1 className="text-center text-4xl font-bold text-twine-900">Welcome to CannaJournal</H1>
+          <H1 className="text-center text-4xl font-bold text-twine-900">Welcome to Toke Diary</H1>
           <Muted className="text-center text-twine-700 text-lg">
             Your personal cannabis experience tracker.
           </Muted>

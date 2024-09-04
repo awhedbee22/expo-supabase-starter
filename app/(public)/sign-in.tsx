@@ -45,7 +45,7 @@ export default function SignIn() {
       <View className="flex-1">
         <H1 className="text-3xl font-bold text-twine-900 mb-2">Sign In</H1>
         <Muted className="text-twine-700 mb-8">
-          Welcome back to CannaJournal
+          Welcome back to Toke Diary
         </Muted>
         <Form {...form}>
           <View className="gap-6">
