@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.awhedbee.TokeJournal",
-      "buildNumber": "1.0.2"
+      "buildNumber": "1.0.3"
     },
     "android": {
       "adaptiveIcon": {
@@ -51,9 +51,7 @@
       },
       "eas": {
         "projectId": "1ef3cae7-93b2-4a64-9c5c-1fee9fd1d39e"
-      },
-      "supabaseUrl": "https://xqmelijilgdgdqlzyroz.supabase.co",
-      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhxbWVsaWppbGdkZ2RxcHpsenpvcnoiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcyMjYyMjYyMiwiZXhwIjoxMDI4MTk4NjIyfQ.5555555555555555555555555555555555555555555555555555555555555555"
+      }
     },
     "owner": "awhedbee"
   }
